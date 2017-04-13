@@ -1,16 +1,17 @@
 package rml.controller;
 
-import java.util.List;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 import rml.model.MUser;
 import rml.service.MUserServiceI;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/muserController")
@@ -33,6 +34,17 @@ public class MUserController {
 		List <MUser> list = muserService.getAll();
 		request.setAttribute("userlist", list);
 		return "listUser";
+	}
+
+	@ResponseBody
+	@RequestMapping("/gridManager/getUserGrid")
+	public Map<String,Object> getUserGrid(){
+		List <MUser> list = muserService.getAll();
+		Map<String, Object> map = new HashMap<String, Object>();
+		//根据gridManager插件前端调试信息发现data属性存放的是一个数组元素集合，参见/node_modules/GridManager/explainPlan目录下的截图说明
+		map.put("data",list);
+		map.put("totals",list.size());
+        return map;
 	}
 	
 	@RequestMapping(value="/addUser")
