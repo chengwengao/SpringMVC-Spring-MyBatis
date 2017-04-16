@@ -36,8 +36,39 @@ public class MUserController {
 		return "listUser";
 	}
 
+	//mmGridDemo页面
+	@RequestMapping(value = "mmGridDemo")
+	public String mmGridDemo(HttpServletRequest request){
+		return "mmGridDemo";
+	}
+
+	//mmGridListUser页面
+	@RequestMapping(value = "mmGridListUser")
+	public String mmGridListUser(){
+		return "mmGridListUser";
+	}
+
+	//mmGridListUser页面ajax请求
 	@ResponseBody
-	@RequestMapping("/gridManager/getUserGrid")
+	@RequestMapping(value = "mmGridListUserAjax")
+	public List<MUser> mmGridListUser(HttpServletRequest request){
+		List<MUser> list = muserService.getAll();
+		return list;
+	}
+
+	//mmGridListUser页面分页请求
+	@ResponseBody
+	@RequestMapping(value = "mmGridListUserPager")
+	public Map<String,Object> mmGridListUserPager(HttpServletRequest request){
+		List<MUser> list = muserService.getAll();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("items",list);
+		map.put("totalCount",list.size());
+		return map;
+	}
+
+	@ResponseBody
+	@RequestMapping(value="/gridManager/getUserGrid")
 	public Map<String,Object> getUserGrid(){
 		List <MUser> list = muserService.getAll();
 		Map<String, Object> map = new HashMap<String, Object>();

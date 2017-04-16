@@ -18,3 +18,4 @@ src/main/resources/rebel-remote.xml
 src/main/resources/rebel.xml
 src/main/webapp/WEB-INF/jetty-web.xml
 src/main/webapp/sendError.jsp
+mybatis.log
